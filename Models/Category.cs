@@ -5,6 +5,7 @@ namespace Blog.Models
 {
     public class Category
     {
+        [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -12,4 +13,3 @@ namespace Blog.Models
         public string Slug { get; set; }
     }
 }
-
