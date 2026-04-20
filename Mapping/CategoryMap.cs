@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Blog.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,7 +11,16 @@ namespace Blog.Data.Mapping
         // Se não fizer o contrato ainda irá fica dando erro
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            throw new System.NotImplementedException();
+            // antess era [Table()]
+            builder.ToTable("Category");
+
+            // Chave Primária
+            builder.HasKey(x => x.Id); // significa tem chave
+
+            // Identity
+            builder.Property(x => x.Id)
+            .ValueGeneratedOnAdd() // Primary Key
+            .UseIdentityColumn(); // aqui e como se fosse o identity(1, 1)
         }
     }
 }
