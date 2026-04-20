@@ -37,6 +37,11 @@ namespace Blog.Data.Mapping
             .HasColumnName("Slug")
             .HasColumnType("VARCHAR")
             .HasMaxLength(80);
+
+            // Indices
+            // Criação dos indices
+            builder.HasIndex(x => x.Slug, "IX_Category_Slug")
+            .IsUnique(); // vai transforma o slug em um índice único
         }
     }
 }
