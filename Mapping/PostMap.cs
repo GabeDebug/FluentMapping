@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Blog.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -32,7 +33,32 @@ namespace Blog.Data.Mapping
             // Relacionamento
             builder.HasOne(x => x.Author)
             .WithMany(x => x.Posts)
-            .HasConstraintName("FK_POST_AUTHOR");
+            .HasConstraintName("FK_POST_AUTHOR")
+            .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(x => x.Category)
+            .WithMany(x => x.Posts)
+            .HasConstraintName("FK_POST_CATEGORY")
+            .OnDelete(DeleteBehavior.Cascade);
+
+
+            // Relacionamentos muitos para muitos
+            builder.HasMany(x => x.Tags)
+            .WithMany(x => x.Posts)
+            .UsingEntity<Dictionary<string, object>>(
+                "PostTag",
+            post => post.HasOne<Tag>()
+            .WithMany()
+            .HasForeignKey("PostId")
+            .HasConstraintName("FK_POST_TAG")
+            .OnDelete(DeleteBehavior.Cascade),
+
+            tag => tag.HasOne<Post>()
+            .WithMany()
+            .HasForeignKey("TagId")
+            .HasConstraintName("FK_TAG_POST")
+            .OnDelete(DeleteBehavior.Cascade)
+            );
         }
     }
 }
