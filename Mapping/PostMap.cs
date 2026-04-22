@@ -29,6 +29,10 @@ namespace Blog.Data.Mapping
             /*
                 para usar o sql do o datetime do dotnet
            */
+            // Relacionamento
+            builder.HasOne(x => x.Author)
+            .WithMany(x => x.Posts)
+            .HasConstraintName("FK_POST_AUTHOR");
         }
     }
 }
