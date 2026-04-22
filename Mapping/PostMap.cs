@@ -16,10 +16,15 @@ namespace Blog.Data.Mapping
             builder.Property(x => x.Id).ValueGeneratedOnAdd().UseIdentityColumn();
 
             builder.Property(x => x.LastUpdateDate) // data padrão 01/01/1900
+            // estou configurando a propriedade LastUpdateDate da minha entidade Post
             .IsRequired()
-            .HasColumnName("LasUpdateDate") // DATETIME NOT NULL DEFAULT(GETDATE())
+            // estou colocando obrigatoriamente (not null)
+            .HasColumnName("LastUpdateDate") // DATETIME NOT NULL DEFAULT(GETDATE())
+            // nome da coluna no banco
             .HasColumnType("SMALLDATETIME")
+            // menos preciso
             .HasDefaultValueSql("GETDATE()") //  se eu deixa como getDate vai gerar como default
+            // mais preciso | o valor que vem padrão no sql serve
             .HasDefaultValue(DateTime.Now.ToUniversalTime()); // não vai ter o sql
             /*
                 para usar o sql do o datetime do dotnet
