@@ -25,6 +25,7 @@ namespace Blog
             context.SaveChanges();
 
             var user = context.Users.FirstOrDefault();
+            // vai pega o primeiro registro ou null
             var post = new Post
             {
                 Author = user,
