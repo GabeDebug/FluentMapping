@@ -24,16 +24,23 @@ namespace Blog
             });
             context.SaveChanges();
 
+            var user = context.Users.FirstOrDefault();
             var post = new Post
             {
-                Author = null,
+                Author = user,
                 Body = "Meu artigo",
-                Category = null,
+                Category = new Category
+                {
+                    Name = "Back-end",
+                    Slug = "Back-end"
+                },
                 CreateDate = System.DateTime.Now,
                 Slug = "meu-artigo",
                 Summary = "Nesse artigo vamos se referir",
                 Title = "Meu artigo",
             };
+            context.Posts.Add(post);
+            context.SaveChanges();
         }
     }
 }
