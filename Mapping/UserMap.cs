@@ -1,3 +1,4 @@
+using System.IO;
 using Blog.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -40,7 +41,32 @@ namespace Blog.Data.Mapping
             // indices
             builder.HasIndex(x => x.Slug, "IX_USER_SLUG")
             .IsUnique();
+
+            // N:N
+
+            builder.HasMany(x => x.Roles)
+            .WithMany(x => x.Users)
+            .UsingEntity<Directory<string, object>>(
+            "UserRole",
+            role => role
+            .HasOne<Role>()
+            .WithMany()
+            .HasForeignKey("RoleId")
+            .HasConstraintName("FK_USER_ROLE_ROLE")
+            .OnDelete(DeleteBehavior.Cascade),
+
+            user => user
+            .HasOne<User>()
+            .WithMany()
+            .HasForeignKey("UserId")
+            .HasConstraintName("FK_USER_ROLE_USER")
+            .OnDelete(DeleteBehavior.Cascade));
         }
 
     }
+
+    internal class Directory<T1, T2>
+    {
+    }
+
 }

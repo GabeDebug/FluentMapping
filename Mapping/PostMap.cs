@@ -43,8 +43,8 @@ namespace Blog.Data.Mapping
 
 
             // Relacionamentos muitos para muitos
-            builder.HasMany(x => x.Tags)
-            .WithMany(x => x.Posts)
+            builder.HasMany(x => x.Tags) // Um Post tem várias Tags
+            .WithMany(x => x.Posts) // Uma Tag tem vários Posts
             .UsingEntity<Dictionary<string, object>>(
                 "PostTag",
             post => post.HasOne<Tag>()
