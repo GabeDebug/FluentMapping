@@ -10,7 +10,18 @@ namespace Blog
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("");
+            using var context = new BlogDataContext();
+
+            context.Users.Add(new User
+            {
+                Bio = "",
+                Email = "",
+                Image = "",
+                Name = "",
+                PasswordHash = "",
+                Slug = ""
+            });
+            context.SaveChanges();
         }
     }
 }

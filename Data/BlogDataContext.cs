@@ -1,4 +1,5 @@
 using Blog.Models;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -17,12 +18,10 @@ namespace Blog.Data
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        // definindo tabelas
         {
             modelBuilder.ApplyConfiguration(new Category());
             modelBuilder.ApplyConfiguration(new User());
             modelBuilder.ApplyConfiguration(new Post());
-            // aplicando configurações separadas para cada entidade
         }
     }
 }
